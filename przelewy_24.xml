@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<install version="1.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>VM - Płatność, Przelewy 24</name>
+    <creationDate>2014-07-09</creationDate>
+    <author>Dodatkijoomla.pl</author>
+    <copyright>Copyright (c) 2014 DodatkiJoomla.pl</copyright>
+    <license>GNU/GPL v2</license>
+    <authorEmail>kontakt@dodatkijoomla.pl</authorEmail>
+    <authorUrl>http://dodatkijoomla.pl</authorUrl>
+    <version>1.9.0</version>
+    <description>Plugin płatności online - Przelewy 24.</description>
+    <languages></languages>
+    <files>
+		<filename plugin="przelewy_24">przelewy_24.php</filename>
+    </files>
+    <params addpath="/administrator/components/com_virtuemart/elements">
+	
+		<param type="vmjpluginwarning" />
+		
+		<param type="spacer" default="&lt;b&gt;Podstawowe ustawienia&lt;/b&gt;" />
+
+		<param name="p24_id_sprzedawcy" type="text"  label="ID sprzedawcy" description=" &lt;/br&gt; &lt;/br&gt;ID sprzedawcy w systemie Przelewy 24, otrzymane po rejestracji." />
+		<param name="p24_klucz_crc" type="text"  label="Klucz CRC (opcjonalne, ZALECANE)" 
+		description=" &lt;/br&gt; &lt;/br&gt;Zabezpiecza dodatkowo płatności online. &lt;/br&gt; Znajdziesz go w panelu transakcyjnym (twoje konto w systemie Przelewy24), w zakładce 'Moje dane'. &lt;/br&gt; Prawdopodobnie klucz CRC trzeba bedzie wygenerować na tej samej podstronie panelu. " />
+		<param name="p24_autoupdate_url" type="text"  label="URL dla automatycznych weryfikacji płatności (opcjonalne)" description=" &lt;/br&gt; &lt;/br&gt;W sytuacji, gdy z pewnych przyczyn wynik transakcji nie zostanie &lt;/br&gt; przekazany do sprzedawcy w 
+określonym czasie  &lt;/br&gt; (np. informacja o wpłacie pojawi się po 15 minutach, &lt;/br&gt; klient zamknie przedwcześnie przeglądarkę lub w wyniku problemów &lt;/br&gt; w komunikacji wynik nie zostanie poprawnie odebrany)  &lt;/br&gt; istnieje możliwość automatycznego przekazania wyniku &lt;/br&gt; transakcji dokonanej przez klienta. &lt;/br&gt; &lt;/br&gt; 
+&lt;b&gt; Aby skorzystać z tego rozszerzenia należy &lt;/br&gt; przesłać link na adres serwis@przelewy24.pl  &lt;/b&gt; 
+ " size="140" />
+		
+		<param type="spacer" />
+		<param type="spacer" default="&lt;b&gt;Ustawienia statusów zamówień, dodatkowych opłat, powiadomień oraz podatku&lt;/b&gt;" />
+
+		<param name="status_pending" type="vmorderstate" scope="com_virtuemart" default="P" label="Status zamówienia po złożeniu zamówienia" description="" />
+		<param name="status_success" type="vmorderstate" scope="com_virtuemart" default="C" label="Status zamówienia przy płatności poprawnej" description="" />
+		<param name="status_canceled" type="vmorderstate" scope="com_virtuemart" default="P" label="Status zamówienia przy płatności błędnej (zalecana pending/oczekująca)" description="" />
+		<param name="powiadomienia" type="radio" default="1" label="Powiadomienia e-mail o zmianie statusu zamówienia" description=" &lt;/br&gt; &lt;/br&gt;Jeśli włączone, wysyła powiadomienie o zmianie statusu zamówienia na adres e-mail klienta.'" >
+			<option value="0">COM_VIRTUEMART_NO</option>
+			<option value="1">COM_VIRTUEMART_YES</option>
+		</param>
+		<param name="cost_per_transaction" type="text"  label="Opłata dodatkowa wyboru płatności (stała)" description="&lt;/br&gt; &lt;/br&gt; Opłata doliczana do zamówienia, wyrażona w stałych wartościach.&lt;/br&gt; Np. wartość 5, doda 5 PLN (lub domyślnej waluty) do rachunku za używanie tej metody płatności. &lt;/br&gt; Przykładowe wartości: 5, 1.1, -1 " />
+		<param name="cost_percent_total" type="text"  label="Opłata dodatkowa zależna od wartości zamówienia (procent od zamówienia)" description="&lt;/br&gt; &lt;/br&gt; Opłata doliczana do zamówienia, wyrażona w % wartościach zamówienia.&lt;/br&gt; Np. wartość 12, to 12% wartości zamówienia. &lt;/br&gt; Przykładowe wartości: 5 (+5% do wartości zam.), 100 (+100% do wartości zam.), -5.5 " />
+		<param name="tax_id" type="vmtaxes" scope="com_virtuemart"  label="Podatek" description=" &lt;/br&gt; &lt;/br&gt;Stawka podatkowa dla płatności" />
+		
+		
+		<param type="spacer" />
+		<param type="spacer" default="&lt;b&gt;Ustawienia grafiki, tekstów i inne &lt;/b&gt;" />
+
+		<param name="autoredirect" type="radio" default="1" label="Automatyczne przekierowanie" description=" &lt;/br&gt; &lt;/br&gt;Jeśli włączone, skrypt automatycznie przekierowuje użytkownika do systemu płatności po potwierdzeniu zamówienia.&lt;/br&gt;  Jeśli nie - użytkownik bedzie musiał kliknąć w grafikę z pola 'Wybierz grafikę płatności dla podstrony potwierdzenia zamówienia'" >
+			<option value="0">COM_VIRTUEMART_NO</option>
+			<option value="1">COM_VIRTUEMART_YES</option>
+		</param>
+		<param name="tryb_testowy" type="list" default="0" label="Tryb testowy płatności" description=" &lt;/br&gt; &lt;/br&gt; Jeśli włączone, umożliwia zweryfikowanie poprawności instalacji bez konieczności dokonywania przelewów.&lt;/br&gt;	&lt;b&gt; Do korzystanie z trybu testowego (jeśli z domyślnym ID sprzedawcy płatności nie chcą się autoryzować)&lt;/br&gt; potrzebna jest rejestracja w systemie testowym pod adresem https://sandbox.przelewy24.pl i używanie ID sprzeawcy systemu testowego (w czasie trwania testów). &lt;/b&gt;
+		
+		" >
+		  <option value="0">Tryb testowy wyłączony</option>
+		  <option value="1">Tryb testowy włączony</option>
+		</param>
+		<param name="payment_logos" type="imagelist" directory="images/stories/virtuemart/payment" default="przelewy24_3.png" label="Logo płatności w koszyku i zamówieniu" description=" &lt;/br&gt; &lt;/br&gt;Logo płatności widoczne w koszyku, wyborze płatności i procesie zamówienia. &lt;/br&gt;  &lt;b&gt;  Możesz dodać własne grafiki wrzucając je do katalogu /images/stories/virtuemart/payment &lt;/b&gt;" />		
+		
+		<param name="payment_image" type="imagelist" directory="images/stories/virtuemart/payment" default="przelewy24_6.png" label="Wybierz grafikę płatności dla podstrony potwierdzenia zamówienia" description=" &lt;/br&gt; &lt;/br&gt;Widoczna w ostatnim etapie składania zamówienia. &lt;/br&gt;   &lt;b&gt;Możesz dodać własne grafiki wrzucając je do katalogu /images/stories/virtuemart/payment &lt;/b&gt;" />
+		
+		<param name="checkout_text" type="text" size="100" label="Tekst zamieszony pod grafiką na podstronie potwierdzenia zamówienia" default="Kliknij w powyższą grafikę aby dokonać płatności" />
+		
+		<param type="spacer" default="
+		&lt;/td&gt; 
+		&lt;/tr&gt;
+		&lt;/table&gt;
+		&lt;table style='width: 100%'&gt;
+		&lt;tr&gt;
+		&lt;td&gt;
+		
+		&lt;center&gt; 
+
+		&lt;/br&gt; &lt;/br&gt;Stworzone przez:&lt;/br&gt;
+		&lt;a target='_blank' href='http://dodatkijoomla.pl'&gt;   &lt;img border=0 src='http://dodatkijoomla.pl/images/logo_podpis_site_mini.png'&gt;  &lt;/a&gt;
+		&lt;p&gt; Szukaj najlepszych rozszerzeń dla Joomla na &lt;a target='_blank' href='http://dodatkijoomla.pl'&gt;DodatkiJoomla.pl &lt;/a&gt;  &lt;/p&gt; 
+		&lt;/center&gt;
+		" />
+    </params>
+</install>
